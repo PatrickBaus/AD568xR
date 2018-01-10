@@ -64,6 +64,8 @@ protected:
 	uint8_t mosiPin;
 	uint8_t sckPin;
 	uint8_t syncPin;
+
+	SPISettings spiSettings;
 };
 
 
