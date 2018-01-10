@@ -11,45 +11,45 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef ADR5683R1
-#define ADR5683R1
+#ifndef ADR5683R1H
+#define ADR5683R1H
 
 // include the Arduino standard library.
 #include <Arduino.h>
 // include the SPI library.
 #include <SPI.h>
 
-class ADR5683R1
-{
+class adr5683r1
+{  
 public:
 
 	//The pins that are used are declared in the constructor.
 	//ADR5683R1(uint8_t mosiPin, uint8_t sckPin, uint8_t syncPin);
-	ADR5683R1(uint8_t sckPin, uint8_t syncPin);
+  adr5683r1(uint8_t,uint8_t);
 	//ADR5683R1(uint8_t syncPin);
 	//Output stuff
 
 	//The output has capacity of 12 bit
-	writeInputRegister(uint16_t value);
+	void writeInputRegister(uint16_t value);
 	
-	updateDACRegister();
+	void updateDACRegister();
 	
-	writeAndUpdateRegisters(uint16_t value);
+	void writeAndUpdateRegisters(uint16_t value);
 	
 	//Control register stuff
-	genericSendFunction(bool mode,uint16_t mask);
+	void genericSendFunction(bool mode,uint16_t mask);
 
-	setDaisyChain(bool mode);
-	setGain(bool mode);
-	setREF(bool mode);
-	setPD0(bool mode);
-	setPD1(bool mode);
-	reset();
+	void setDaisyChain(bool mode);
+	void setGain(bool mode);
+	void setRef(bool mode);
+	void setPD0(bool mode);
+	void setPD1(bool mode);
+	void resetDAC();
 	
 	//Initialze everything with begin().
-	begin();
+	void beginDAC(uint32_t clockSpeed);
 
-protected:
+private:
 
 	//The bits that changes the input register.
 	static const uint16_t WRITE_INPUT_REGISTER_BIT=0b00010000000000000000;
@@ -83,9 +83,5 @@ protected:
 	uint8_t mosiPin;
 	uint8_t sckPin;
 	uint8_t syncPin;
-
-	SPISettings spiSettings;
 };
-
-
 #endif
