@@ -13,3 +13,44 @@
  */
 #include "ADR5683R1.h"
 
+#define MAX_CLOCK_FREQUENCY 50000000 //The maximal clockfrequency of the DAC is 50 Mhz 
+
+ADR5683R1::ADR5683R1(uint8_t sckPin, uint8_t syncPin) : syncPin(syncPin), sckPin(sckPin){}
+
+ADR5683R1::writeInputRegister(uint16_t value){
+	//Check if the value is bigger than 12 Bit.
+	if(value<maxValue){
+		uint16_t dataToSend=writeInputRegisterBits | value;
+		noInterrupts();
+		digitalWrite(syncPin,LOW);
+	    //Write the commmands to the DAC
+	    SPI.transfer16(dataToSend);
+	    //Pull up the SYNC pin to end the transmission
+	    digitalWrite(syncPin,HIGH);
+		interrupts();
+	}
+}
+
+ADR5683R1::updateDACRegister(){
+	noInterrupts();
+	digitalWrite(syncPin,LOW);
+    //Write the commmands to the DAC
+    SPI.transfer16(writeDACRegisterBits);
+    //Pull up the SYNC pin to end the transmission
+    digitalWrite(syncPin,HIGH);
+	interrupts();
+}
+
+ADR5683R1::writeAndUpdateRegisters(uint16_t value){
+	//Check if the value is bigger than 12 Bit.
+	if(value<maxValue){
+		uint16_t dataToSend=writeAndUpdateRegistersBits | value;
+		noInterrupts();
+		digitalWrite(syncPin,LOW);
+		//Write the commmands to the DAC
+	    SPI.transfer16(dataToSend);
+		//Pull up the SYNC pin to end the transmission
+		digitalWrite(syncPin,HIGH);
+		interrupts();
+	}
+}

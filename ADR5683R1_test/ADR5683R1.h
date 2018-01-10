@@ -24,9 +24,9 @@ class ADR5683R1
 public:
 
 	//The pins that are used are declared in the constructor.
-	ADR5683R1(uint8_t mosiPin, uint8_t sckPin, uint8_t syncPin);
+	//ADR5683R1(uint8_t mosiPin, uint8_t sckPin, uint8_t syncPin);
 	ADR5683R1(uint8_t sckPin, uint8_t syncPin);
-	ADR5683R1(uint8_t syncPin);
+	//ADR5683R1(uint8_t syncPin);
 	//Output stuff
 
 	//The output has capacity of 12 bit
@@ -34,7 +34,7 @@ public:
 	
 	updateDACRegister();
 	
-	outputVoltage(uint16_t value);
+	writeAndUpdateRegisters(uint16_t value);
 	
 	//Control register stuff
 	setDaisyChain(bool mode);
@@ -54,13 +54,15 @@ protected:
 	//The bits that produces an output of the DA with the value in the input register.
 	static const uint16_t writeDACRegisterBits=0b0010000000000000;
 	//Changes the input register and outputs the written values.
-	static const uint16_t writeOutputBits=0b0011000000000000;
+	static const uint16_t writeAndUpdateRegistersBits=0b0011000000000000;
 	//The bits that are send to write control register.
 	static const uint16_t writeControlRegisterBits=0b0100000000000000;
+	//The maximal that can be entered has a size of 12 Bit
+	static const uint16_t maxValue=1<<12;
 
 	//Save the control register of the DAC so that the other values are not changed when write a new value it.
 	//The control register is 0 by default.
-	uint16_t controlRegister = 0b0000000000000000;
+	uint16_t controlRegister = 0;
 	uint8_t mosiPin;
 	uint8_t sckPin;
 	uint8_t syncPin;
