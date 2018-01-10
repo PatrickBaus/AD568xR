@@ -50,19 +50,34 @@ public:
 protected:
 
 	//The bits that changes the input register.
-	static const uint16_t writeInputRegisterBits=0b00010000000000000000;
+	static const uint16_t WRITE_INPUT_REGISTER_BIT=0b00010000000000000000;
 	//The bits that produces an output of the DA with the value in the input register.
-	static const uint16_t writeDACRegisterBits=0b0010000000000000;
+	static const uint16_t WRITE_DAC_REGISTER_BIT=0b0010000000000000;
 	//Changes the input register and outputs the written values.
-	static const uint16_t writeAndUpdateRegistersBits=0b0011000000000000;
+	static const uint16_t WRITE_AND_UPDATE_REGISTER_BITS=0b0011000000000000;
 	//The bits that are send to write control register.
-	static const uint16_t writeControlRegisterBits=0b0100000000000000;
-	//The maximal that can be entered has a size of 12 Bit
-	static const uint16_t maxValue=1<<12;
+	static const uint16_t WRITE_CONTROL_REGISTER_BIT=0b0100000000000000;
+	//The maximal that can be entered has a size of 12 Bit.
+	static const uint16_t MAX_VALUE=4096;
+
+	static const uint16_t DAISY_CHAIN_BIT=0b0000000001000000;	
+
+	static const uint16_t GAIN_BIT=0b0000000010000000;
+
+	static const uint16_t REFERENCE_BIT=0b0000000100000000;
+
+	static const uint16_t PD0_BIT=0b0000001000000000;
+
+	static const uint16_t PD1_BIT=0b0000010000000000;
+
+	static const uint16_t RESET_BIT=0b0000100000000000;
+
+	//Is there to be send when the first 16 Bits of 24 for the control register were send.
+	static const uint8_t ZERO_BIT=0;
 
 	//Save the control register of the DAC so that the other values are not changed when write a new value it.
 	//The control register is 0 by default.
-	uint16_t controlRegister = 0;
+	uint16_t controlRegister;
 	uint8_t mosiPin;
 	uint8_t sckPin;
 	uint8_t syncPin;

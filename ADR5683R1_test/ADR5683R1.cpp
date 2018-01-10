@@ -15,18 +15,18 @@
 
 #define MAX_CLOCK_FREQUENCY 50000000 //The maximal clockfrequency of the DAC is 50 Mhz 
 
-ADR5683R1::ADR5683R1(uint8_t sckPin, uint8_t syncPin) : syncPin(syncPin), sckPin(sckPin){}
+ADR5683R1::ADR5683R1(uint8_t sckPin, uint8_t syncPin) : syncPin(syncPin), sckPin(sckPin), controlRegister=0 {}
 
 ADR5683R1::writeInputRegister(uint16_t value){
 	//Check if the value is bigger than 12 Bit.
-	if(value<maxValue){
-		uint16_t dataToSend=writeInputRegisterBits | value;
+	if(value<MAX_VALUE){
+		uint16_t dataToSend=WRIT_INPUT_REGISTER_BIT | value;
 		noInterrupts();
-		digitalWrite(syncPin,LOW);
-	    //Write the commmands to the DAC
+		
+		digitalWrite(syncPin,LOW); //Write the commmands to the DAC
 	    SPI.transfer16(dataToSend);
-	    //Pull up the SYNC pin to end the transmission
-	    digitalWrite(syncPin,HIGH);
+	    digitalWrite(syncPin,HIGH);//Pull up the SYNC pin to end the transmission
+		
 		interrupts();
 	}
 }
@@ -43,14 +43,53 @@ ADR5683R1::updateDACRegister(){
 
 ADR5683R1::writeAndUpdateRegisters(uint16_t value){
 	//Check if the value is bigger than 12 Bit.
-	if(value<maxValue){
-		uint16_t dataToSend=writeAndUpdateRegistersBits | value;
+	if(value<MAX_VALUE){
+		uint16_t dataToSend=WRITE_AND_UPDATE_REGISTERS_BITS | value;
+		
 		noInterrupts();
-		digitalWrite(syncPin,LOW);
-		//Write the commmands to the DAC
+
+		digitalWrite(syncPin,LOW);//Write the commmands to the DAC
 	    SPI.transfer16(dataToSend);
-		//Pull up the SYNC pin to end the transmission
-		digitalWrite(syncPin,HIGH);
+		digitalWrite(syncPin,HIGH);//Pull up the SYNC pin to end the transmission
+		
 		interrupts();
 	}
 }
+
+ADR5683R1::setDaisyChain(bool mode){	
+	
+	if(mode){
+		controlRegister=controlRegister | DAISY_CHAIN_BIT;
+	}
+	else{
+		controlRegister=controlRegister & ~(DAISY_CHAIN_BIT);
+	}
+
+	noInterrupts();
+	
+	digitalWrite(syncPin,LOW); //Write the commmands to the DAC
+    SPI.transfer16(controlRegister);
+    SPI.transer(ZERO_BIT);
+	digitalWrite(syncPin,HIGH); //Pull up the SYNC pin to end the transmission
+	
+	interrupts();
+}
+
+ADR5683R1::setGain(bool mode){
+	if(mode){
+		controlRegister=controlRegister | GAIN_BIT;
+	}
+	else{
+		controlRegister=controlRegister & ~(GAIN_BIT);
+	}
+
+	noInterrupts();
+	
+	digitalWrite(syncPin,LOW); //Write the commmands to the DAC
+    SPI.transfer16(controlRegister);
+    SPI.transer(ZERO_BIT);
+	digitalWrite(syncPin,HIGH); //Pull up the SYNC pin to end the transmission
+	
+	interrupts();
+}
+
