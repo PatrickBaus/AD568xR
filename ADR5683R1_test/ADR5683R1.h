@@ -37,12 +37,14 @@ public:
 	writeAndUpdateRegisters(uint16_t value);
 	
 	//Control register stuff
+	genericSendFunction(bool mode,uint16_t mask);
+
 	setDaisyChain(bool mode);
 	setGain(bool mode);
 	setREF(bool mode);
 	setPD0(bool mode);
 	setPD1(bool mode);
-	reset(bool mode);
+	reset();
 	
 	//Initialze everything with begin().
 	begin();
@@ -72,7 +74,7 @@ protected:
 
 	static const uint16_t RESET_BIT=0b0000100000000000;
 
-	//Is there to be send when the first 16 Bits of 24 for the control register were send.
+	//This byte is send when the first 16 Bits of the 24 for the control register were send.
 	static const uint8_t ZERO_BIT=0;
 
 	//Save the control register of the DAC so that the other values are not changed when write a new value it.
