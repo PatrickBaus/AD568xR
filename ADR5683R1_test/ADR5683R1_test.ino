@@ -1,8 +1,25 @@
 #include "ADR5683R1.h"
 
-void setup() {
-  // put your setup code here, to run once:
+//The Pin which has to be pulled LOW to begin a transmission.
+#define SYNC_PIN 10
 
+//The Pin for the clock signal.
+#define SCK_PIN 14
+
+//The maximal clock in Mhz that the Teensy LC can handle.
+#define CLOCK_SPEED 48000000
+
+adr5683r1 dac(SCK_PIN,SYNC_PIN);
+
+void setup() {
+  Serial.begin(9600);
+  // put your setup code here, to run once:
+  dac.beginDAC(CLOCK_SPEED);
+  dac.setGain(false);
+  delay(1);
+  dac.writeInputRegister(4000);
+  dac.updateDACRegister();
+  //dac.writeAndUpdateRegisters(1000);
 }
 
 void loop() {

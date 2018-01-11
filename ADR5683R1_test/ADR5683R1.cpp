@@ -14,18 +14,22 @@
 #include "ADR5683R1.h"
 
 #define MAX_CLOCK_FREQUENCY 50000000 //The maximal clockfrequency of the DAC is 50 Mhz 
-/*
-ADR5683R1::ADR5683R1(uint8_t sckPin1, uint8_t syncPin1){ 
+
+adr5683r1::adr5683r1(uint8_t sckPin1, uint8_t syncPin1){ 
 	this->syncPin=syncPin1; 
 	this->sckPin=sckPin1; 
 	this->controlRegister=0;
+  SPI.setSCK(sckPin1);
 }
-*/
+
+uint16_t adr5683r1::getControlRegister(){
+  return(this->controlRegister);
+}
 
 void adr5683r1::writeInputRegister(uint16_t value){
 	//Check if the value is bigger than 12 Bit.
 	if(value<MAX_VALUE){
-		uint16_t dataToSend=this->WRITE_INPUT_REGISTER_BIT | value;
+		uint16_t dataToSend=(this->WRITE_INPUT_REGISTER_BIT) | value;
 		noInterrupts();
 		
 		digitalWrite(this->syncPin,LOW); //Write the commmands to the DAC
@@ -40,6 +44,8 @@ void adr5683r1::updateDACRegister(){
 	noInterrupts();
 	digitalWrite(this->syncPin,LOW); //Write the commmands to the DAC
   SPI.transfer16(this->WRITE_DAC_REGISTER_BIT);
+  //SPI.transfer(this->ZERO_BIT);
+  delay(1);
   digitalWrite(this->syncPin,HIGH); //Pull up the SYNC pin to end the transmission
 	interrupts();
 }
@@ -53,25 +59,30 @@ void adr5683r1::writeAndUpdateRegisters(uint16_t value){
 
 		digitalWrite(this->syncPin,LOW);//Write the commmands to the DAC
 		SPI.transfer16(dataToSend);
+    delay(1);
 		digitalWrite(this->syncPin,HIGH);//Pull up the SYNC pin to end the transmission
-		
 		interrupts();
 	}
 }
 
 //This function is only needed to derive a couple send functions for the controlregister from it.
 void adr5683r1::genericSendFunction(bool mode, uint16_t mask){
+	
 	if(mode){
 		this->controlRegister=this->controlRegister | mask;
 	}
 	else{
-		this->controlRegister=controlRegister & ~mask;
+		this->controlRegister=this->controlRegister & ~mask;
 	}
+
+  uint16_t dataToSend = WRITE_CONTROL_REGISTER_BIT | this->controlRegister;
+
+  Serial.println(dataToSend,BIN);
 
 	noInterrupts();
 	
 	digitalWrite(this->syncPin,LOW); //Write the commmands to the DAC
-	SPI.transfer16(controlRegister);
+	SPI.transfer16(dataToSend);
 	SPI.transfer(this->ZERO_BIT);
 	digitalWrite(this->syncPin,HIGH); //Pull up the SYNC pin to end the transmission
 	

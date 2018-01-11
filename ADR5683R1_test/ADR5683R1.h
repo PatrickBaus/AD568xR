@@ -34,17 +34,26 @@ public:
 	
 	void updateDACRegister();
 	
+	//This method was tested and works.
 	void writeAndUpdateRegisters(uint16_t value);
 	
 	//Control register stuff
 	void genericSendFunction(bool mode,uint16_t mask);
 
 	void setDaisyChain(bool mode);
+	
+	//This method was tested and works.
 	void setGain(bool mode);
+	
 	void setRef(bool mode);
+	
 	void setPD0(bool mode);
+	
 	void setPD1(bool mode);
+	
 	void resetDAC();
+  
+  uint16_t getControlRegister();
 	
 	//Initialze everything with begin().
 	void beginDAC(uint32_t clockSpeed);
