@@ -25,7 +25,7 @@ public:
 
 	//The pins that are used are declared in the constructor.
 	//ADR5683R1(uint8_t mosiPin, uint8_t sckPin, uint8_t syncPin);
-  	adr5683r1(uint8_t,uint8_t);
+  	ADR5683R1(uint8_t,uint8_t);
 	//ADR5683R1(uint8_t syncPin);
 	
 	//Output stuff
