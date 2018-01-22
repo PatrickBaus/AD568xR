@@ -12,17 +12,18 @@
 adr5683r1 dac(SCK_PIN,SYNC_PIN);
 
 void setup() {
+  pinMode(SCK_PIN,OUTPUT);
+  pinMode(11,OUTPUT);
   Serial.begin(9600);
   // put your setup code here, to run once:
   dac.beginDAC(CLOCK_SPEED);
   dac.setGain(false);
   delay(1);
-  dac.writeInputRegister(4000);
-  dac.updateDACRegister();
+  
   //dac.writeAndUpdateRegisters(1000);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  dac.writeAndUpdateRegisters(4000);
 }
