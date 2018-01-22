@@ -25,7 +25,7 @@ adr5683r1::adr5683r1(uint8_t sckPin1, uint8_t syncPin1){
 uint16_t adr5683r1::getControlRegister(){
   return(this->controlRegister);
 }
-
+/*
 void adr5683r1::writeInputRegister(uint16_t value){
 	//Check if the value is bigger than 12 Bit.
 	if(value<MAX_VALUE){
@@ -48,7 +48,7 @@ void adr5683r1::updateDACRegister(){
 	digitalWrite(this->syncPin,HIGH); //Pull up the SYNC pin to end the transmission
 	interrupts();
 }
-
+*/
 void adr5683r1::writeAndUpdateRegisters(uint16_t value){
 	//Check if the value is bigger than 12 Bit.
 	if(value<MAX_VALUE){

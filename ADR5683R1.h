@@ -31,9 +31,9 @@ public:
 	//Output stuff
 
 	//The output has capacity of 12 bit
-	void writeInputRegister(uint16_t value);
+	//void writeInputRegister(uint16_t value);
 	
-	void updateDACRegister();
+	//void updateDACRegister();
 	
 	//This method was tested and works.
 	void writeAndUpdateRegisters(uint16_t value);
@@ -63,9 +63,9 @@ public:
 private:
 
 	//The bits that changes the input register.
-	static const uint16_t WRITE_INPUT_REGISTER_BIT=0b00010000000000000000;
+	//static const uint16_t WRITE_INPUT_REGISTER_BIT=0b00010000000000000000;
 	//The bits that produces an output of the DA with the value in the input register.
-	static const uint16_t WRITE_DAC_REGISTER_BIT=0b0010000000000000;
+	//static const uint16_t WRITE_DAC_REGISTER_BIT=0b0010000000000000;
 	//Changes the input register and outputs the written values.
 	static const uint16_t WRITE_AND_UPDATE_REGISTER_BITS=0b0011000000000000;
 	//The bits that are send to write control register.
