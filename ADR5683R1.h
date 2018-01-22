@@ -11,8 +11,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef ADR5683R1H
-#define ADR5683R1H
+#ifndef ADR5683R1_H
+#define ADR5683R1_H
 
 // include the Arduino standard library.
 #include <Arduino.h>
@@ -25,8 +25,9 @@ public:
 
 	//The pins that are used are declared in the constructor.
 	//ADR5683R1(uint8_t mosiPin, uint8_t sckPin, uint8_t syncPin);
-  adr5683r1(uint8_t,uint8_t);
+  	adr5683r1(uint8_t,uint8_t);
 	//ADR5683R1(uint8_t syncPin);
+	
 	//Output stuff
 
 	//The output has capacity of 12 bit
@@ -51,10 +52,10 @@ public:
 	
 	void setPD1(bool mode);
 
-  //This method was tested and works.
+	//This method was tested and works.
 	void resetDAC();
   
-  uint16_t getControlRegister();
+	uint16_t getControlRegister();
 	
 	//Initialze everything with begin().
 	void beginDAC(uint32_t clockSpeed);
