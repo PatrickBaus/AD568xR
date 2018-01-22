@@ -19,7 +19,7 @@
 // include the SPI library.
 #include <SPI.h>
 
-class adr5683r1
+class ADR5683R1
 {  
 public:
 

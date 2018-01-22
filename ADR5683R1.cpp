@@ -15,18 +15,18 @@
 
 #define MAX_CLOCK_FREQUENCY 50000000 //The maximal clockfrequency of the DAC is 50 Mhz 
 
-adr5683r1::adr5683r1(uint8_t sckPin1, uint8_t syncPin1){ 
+ADR5683R1::ADR5683R1(uint8_t sckPin1, uint8_t syncPin1){ 
 	this->syncPin=syncPin1; 
 	this->sckPin=sckPin1; 
 	this->controlRegister=0;
   SPI.setSCK(sckPin1);
 }
 
-uint16_t adr5683r1::getControlRegister(){
+uint16_t ADR5683R1::getControlRegister(){
   return(this->controlRegister);
 }
 /*
-void adr5683r1::writeInputRegister(uint16_t value){
+void ADR5683R1::writeInputRegister(uint16_t value){
 	//Check if the value is bigger than 12 Bit.
 	if(value<MAX_VALUE){
 		uint16_t dataToSend=(this->WRITE_INPUT_REGISTER_BIT) | value;
@@ -40,7 +40,7 @@ void adr5683r1::writeInputRegister(uint16_t value){
 	}
 }
 
-void adr5683r1::updateDACRegister(){
+void ADR5683R1::updateDACRegister(){
 	noInterrupts();
 	digitalWrite(this->syncPin,LOW); //Write the commmands to the DAC
 	SPI.transfer16(this->WRITE_DAC_REGISTER_BIT);
@@ -49,7 +49,7 @@ void adr5683r1::updateDACRegister(){
 	interrupts();
 }
 */
-void adr5683r1::writeAndUpdateRegisters(uint16_t value){
+void ADR5683R1::writeAndUpdateRegisters(uint16_t value){
 	//Check if the value is bigger than 12 Bit.
 	if(value<MAX_VALUE){
 	uint16_t dataToSend=this->WRITE_AND_UPDATE_REGISTER_BITS | value;
@@ -65,7 +65,7 @@ void adr5683r1::writeAndUpdateRegisters(uint16_t value){
 }
 
 //This function is only needed to derive a couple send functions for the controlregister from it.
-void adr5683r1::genericSendFunction(bool mode, uint16_t mask){
+void ADR5683R1::genericSendFunction(bool mode, uint16_t mask){
 	
 	if(mode){
 		this->controlRegister=this->controlRegister | mask;
@@ -88,28 +88,28 @@ void adr5683r1::genericSendFunction(bool mode, uint16_t mask){
 	interrupts();
 }
 
-void adr5683r1::setDaisyChain(bool mode){	
+void ADR5683R1::setDaisyChain(bool mode){	
 	genericSendFunction(mode,this->DAISY_CHAIN_BIT);
 }
 
-void adr5683r1::setGain(bool mode){
+void ADR5683R1::setGain(bool mode){
 	genericSendFunction(mode,this->GAIN_BIT);
 }
 
-void adr5683r1::setRef(bool mode){
+void ADR5683R1::setRef(bool mode){
 	genericSendFunction(mode,this->REFERENCE_BIT);
 }
 
-void adr5683r1::setPD0(bool mode){
+void ADR5683R1::setPD0(bool mode){
 	genericSendFunction(mode,this->PD0_BIT);
 }
 
-void adr5683r1::setPD1(bool mode){
+void ADR5683R1::setPD1(bool mode){
 	genericSendFunction(mode,this->PD1_BIT);
 }
 
 
-void adr5683r1::resetDAC(){
+void ADR5683R1::resetDAC(){
 	this->controlRegister=this->controlRegister | this->RESET_BIT;
 
 	noInterrupts();
@@ -123,7 +123,7 @@ void adr5683r1::resetDAC(){
 
 	this->controlRegister=0;
 }
-void adr5683r1::beginDAC(uint32_t clockSpeed){
+void ADR5683R1::beginDAC(uint32_t clockSpeed){
 	SPI.begin();
 	pinMode(this->syncPin,OUTPUT);
 	digitalWrite(this->syncPin,HIGH);
