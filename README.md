@@ -1,2 +1,2 @@
-# ADR5683R1
-A library to control the ADR5683R1 DAC with an Arduino or Teensy.
+# ADR5681R
+A library to control the ADR5681R DAC with an Arduino or Teensy.

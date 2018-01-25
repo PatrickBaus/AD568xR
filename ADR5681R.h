@@ -1,5 +1,5 @@
 /*    
- *  The ADR5683R1 library is free software: you can redistribute it and/or
+ *  The ADR5681R library is free software: you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as 
  *  published by the Free Software Foundation, either version 3 of the 
  *  License, or (at your option) any later version.
@@ -11,22 +11,22 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef ADR5683R1_H
-#define ADR5683R1_H
+#ifndef ADR5681R_H
+#define ADR5681R_H
 
 // include the Arduino standard library.
 #include <Arduino.h>
 // include the SPI library.
 #include <SPI.h>
 
-class ADR5683R1
+class ADR5681R
 {  
 public:
 
 	//The pins that are used are declared in the constructor.
-	//ADR5683R1(uint8_t mosiPin, uint8_t sckPin, uint8_t syncPin);
-  	ADR5683R1(uint8_t,uint8_t);
-	//ADR5683R1(uint8_t syncPin);
+	//ADR5681R(uint8_t mosiPin, uint8_t sckPin, uint8_t syncPin);
+  	ADR5681R(uint8_t,uint8_t);
+	//ADR5681R(uint8_t syncPin);
 	
 	//Output stuff
 
