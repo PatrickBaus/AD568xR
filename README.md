@@ -6,7 +6,7 @@ This repository contains an Arduino library for the Analog Devices AD5681R/AD568
 Usage
 -----
 ```cpp
-#include "AD568xR.h"
+#include "ad568xr.h"
 
 #define CS_PIN 10
 #define SCK_PIN 14
