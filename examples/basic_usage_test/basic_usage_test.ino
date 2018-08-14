@@ -1,4 +1,4 @@
-#include "AD568xR.h"
+#include "ad568xr.h"
 
 #define CS_PIN 10
 #define SCK_PIN 14

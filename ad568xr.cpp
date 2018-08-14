@@ -11,7 +11,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "AD568xR.h"
+#include "ad568xr.h"
 
 #define AD5681R_SPI_CLOCK_FREQUENCY (1*1000*1000) //The maximum clockfrequency of the DAC is 50 Mhz 
 
