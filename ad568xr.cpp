@@ -23,9 +23,6 @@ const uint16_t AD568XR::getControlRegister(){
 }
 
 void AD568XR::writeSPI(const uint32_t value) {
-  Serial.println(value);
-  Serial.println(value, BIN);
-  Serial.write(0x00);
   this->spi->beginTransaction(this->spi_settings);
   digitalWriteFast(this->cs_pin, LOW);
 
