@@ -16,8 +16,8 @@ AD5681R dac(CS_PIN, &SPI);    // To use the 14-bit version use AD5682R, or AD568
 void setup() {
   pinMode(SCK_PIN,OUTPUT);
   SPI.setSCK(SCK_PIN);
-  SPI.begin();
-  dac.begin();          // Set all pins required by the DAC
+  dac.begin();          // Set all pins required by the DAC and calls SPI.begin()
+  // dac.begin(false);  // Call begin(false) if you do not want to run SPI.begin()
   dac.reset();          // Reset the internal DAC registers
   dac.setGain(true);    // Set the maximum output voltage to 2*Vref = 5 V
 

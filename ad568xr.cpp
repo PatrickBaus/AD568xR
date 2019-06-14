@@ -69,7 +69,11 @@ void AD568XR::reset() {
   this->controlRegister = 0;
 }
 
-void AD568XR::begin() {
-	pinMode(this->cs_pin, OUTPUT);
-	digitalWriteFast(this->cs_pin, HIGH);
+void AD568XR::begin(bool initSpi) {
+  pinMode(this->cs_pin, OUTPUT);
+  digitalWriteFast(this->cs_pin, HIGH);
+  if (initSpi) {
+    this->spi->begin();
+  }
+
 }

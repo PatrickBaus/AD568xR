@@ -38,7 +38,7 @@ class AD568XR {
     void reset();
 
     const uint16_t getControlRegister();
-    void begin();
+    void begin(bool initSPI=true);
 
   private:
     const uint8_t VALUE_OFFSET;
