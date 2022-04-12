@@ -14,9 +14,7 @@
 #ifndef AD5681R_H
 #define AD5681R_H
 
-// include the Arduino standard library.
-#include <Arduino.h>
-// include the SPI library.
+// include the Arduino SPI library.
 #include <SPI.h>
 
 enum PowerDownMode {
@@ -37,7 +35,7 @@ class AD568XR {
     void setPowerDownMode(const PowerDownMode mode);
     void reset();
 
-    const uint16_t getControlRegister();
+    uint16_t getControlRegister();
     void begin(bool initSPI=true);
 
   private:
