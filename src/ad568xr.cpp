@@ -13,10 +13,8 @@
  */
 #include "ad568xr.h"
 
-#define AD5681R_SPI_CLOCK_FREQUENCY (1*1000*1000) //The maximum clockfrequency of the DAC is 50 Mhz 
-
-AD568XR::AD568XR(const uint8_t _cs_pin, SPIClass* _spi, const uint8_t _VALUE_OFFSET) :
-    VALUE_OFFSET(_VALUE_OFFSET), spi(_spi), spi_settings(SPISettings(AD5681R_SPI_CLOCK_FREQUENCY, MSBFIRST, SPI_MODE1)), cs_pin(_cs_pin) {};
+AD568XR::AD568XR(const uint8_t _cs_pin, SPIClass& _spi, const uint8_t _VALUE_OFFSET) :
+    VALUE_OFFSET(_VALUE_OFFSET), spi(&_spi), spi_settings(SPISettings(AD568XR_SPI_CLOCK_FREQUENCY, MSBFIRST, SPI_MODE1)), cs_pin(_cs_pin) {};
 
 uint16_t AD568XR::getControlRegister(){
   return this->controlRegister;
@@ -24,14 +22,22 @@ uint16_t AD568XR::getControlRegister(){
 
 void AD568XR::writeSPI(const uint32_t value) {
   this->spi->beginTransaction(this->spi_settings);
-  digitalWriteFast(this->cs_pin, LOW);
+  #if defined(__arm__) && defined(TEENSYDUINO)
+    digitalWriteFast(this->cs_pin, LOW);
+  #else
+    digitalWrite(this->cs_pin, LOW);
+  #endif
 
   // The input shift register is 24 bits wide. So we do not care about the top byte of the 32 bit integer
   this->spi->transfer((value >> 16) & 0xFF);
   this->spi->transfer((value >> 8) & 0xFF);
   this->spi->transfer((value >> 0) & 0xFF);
 
-  digitalWriteFast(this->cs_pin, HIGH);
+  #if defined(__arm__) && defined(TEENSYDUINO)
+    digitalWriteFast(this->cs_pin, HIGH);
+  #else
+    digitalWrite(this->cs_pin, HIGH);
+  #endif
   this->spi->endTransaction();
 }
 
@@ -71,7 +77,11 @@ void AD568XR::reset() {
 
 void AD568XR::begin(bool initSpi) {
   pinMode(this->cs_pin, OUTPUT);
-  digitalWriteFast(this->cs_pin, HIGH);
+  #if defined(__arm__) && defined(TEENSYDUINO)
+    digitalWriteFast(this->cs_pin, HIGH);
+  #else
+    digitalWrite(this->cs_pin, HIGH);
+  #endif
   if (initSpi) {
     this->spi->begin();
   }

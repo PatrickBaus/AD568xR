@@ -17,6 +17,8 @@
 // include the Arduino SPI library.
 #include <SPI.h>
 
+#define AD568XR_SPI_CLOCK_FREQUENCY (1*1000*1000) //The maximum clockfrequency of the DAC is 50 Mhz
+
 enum PowerDownMode {
   normal = 0b00,
   outputImpedance1k = 0b01,
@@ -26,7 +28,7 @@ enum PowerDownMode {
 
 class AD568XR {
   public:
-    AD568XR(const uint8_t cs_pin, SPIClass* spi, const uint8_t VALUE_OFFSET);
+    AD568XR(const uint8_t cs_pin, SPIClass& spi, const uint8_t VALUE_OFFSET);
     
     void setValue(const uint16_t value);
     void setDaisyChain(const bool enable);
@@ -36,7 +38,7 @@ class AD568XR {
     void reset();
 
     uint16_t getControlRegister();
-    void begin(bool initSPI=true);
+    void begin(bool initSPI=false);
 
   private:
     const uint8_t VALUE_OFFSET;
@@ -63,16 +65,16 @@ class AD568XR {
 
 class AD5681R: public AD568XR {
   public:
-    AD5681R(const uint8_t cs_pin, SPIClass* spi) : AD568XR(cs_pin, spi, 4+4) {}
+    AD5681R(const uint8_t cs_pin, SPIClass& spi) : AD568XR(cs_pin, spi, 4+4 /*VALUE_OFFSET*/) {}
 };
 
 class AD5682R: public AD568XR {
   public:
-    AD5682R(const uint8_t cs_pin, SPIClass* spi) : AD568XR(cs_pin, spi, 4+2) {}
+    AD5682R(const uint8_t cs_pin, SPIClass& spi) : AD568XR(cs_pin, spi, 4+2 /*VALUE_OFFSET*/) {}
 };
 
 class AD5683R: public AD568XR {
   public:
-    AD5683R(const uint8_t cs_pin, SPIClass* spi) : AD568XR(cs_pin, spi, 4) {}
+    AD5683R(const uint8_t cs_pin, SPIClass& spi) : AD568XR(cs_pin, spi, 4 /*VALUE_OFFSET*/) {}
 };
 #endif

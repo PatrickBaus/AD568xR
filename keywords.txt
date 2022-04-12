@@ -1,0 +1,20 @@
+# Syntax Coloring Map For ExampleLibrary
+
+# Datatypes (KEYWORD1)
+AD5681R                 KEYWORD1
+AD5682R                 KEYWORD1
+AD5683R                 KEYWORD1
+PowerDownMode           KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+begin                   KEYWORD2
+setValue                KEYWORD2
+setDaisyChain           KEYWORD2
+setGain                 KEYWORD2
+disableRefeference      KEYWORD2
+setPowerDownMode        KEYWORD2
+reset                   KEYWORD2
+
+# Instances (KEYWORD2)
+
+# Constants (LITERAL1)
