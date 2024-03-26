@@ -17,7 +17,7 @@
 // include the Arduino SPI library.
 #include <SPI.h>
 
-#define AD568XR_SPI_CLOCK_FREQUENCY (1*1000*1000) //The maximum clockfrequency of the DAC is 50 Mhz
+#define AD568XR_SPI_CLOCK_FREQUENCY (1*1000*1000) // The maximum clock frequency of the DAC is 50 MHz
 
 enum PowerDownMode {
   normal = 0b00,
