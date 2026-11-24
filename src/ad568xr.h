@@ -14,6 +14,9 @@
 #ifndef AD5681R_H
 #define AD5681R_H
 
+// pinMode(), digitalWrite() and the pin constants. Not all cores include it from SPI.h
+#include <Arduino.h>
+
 // include the Arduino SPI library.
 #include <SPI.h>
 
