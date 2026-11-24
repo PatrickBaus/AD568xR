@@ -16,7 +16,7 @@
 AD568XR::AD568XR(const uint8_t _cs_pin, SPIClass& _spi, const uint8_t _VALUE_OFFSET) :
     VALUE_OFFSET(_VALUE_OFFSET), spi(&_spi), spi_settings(SPISettings(AD568XR_SPI_CLOCK_FREQUENCY, MSBFIRST, SPI_MODE1)), cs_pin(_cs_pin) {};
 
-uint16_t AD568XR::getControlRegister(){
+uint32_t AD568XR::getControlRegister(){
   return this->controlRegister;
 }
 

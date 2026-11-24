@@ -37,7 +37,7 @@ class AD568XR {
     void setPowerDownMode(const PowerDownMode mode);
     void reset();
 
-    uint16_t getControlRegister();
+    uint32_t getControlRegister();
     void begin(bool initSPI=false);
 
   private:
