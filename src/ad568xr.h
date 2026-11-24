@@ -51,16 +51,16 @@ class AD568XR {
     uint32_t controlRegister = 0;
     uint8_t cs_pin;
 
-    static const uint32_t COMMAND_WRITE_INPUT_REGISTER=0b0001 << 20;
-    static const uint32_t COMMAND_UPDATE_INPUT_REGISTER=0b0010 << 20;
-    static const uint32_t COMMAND_WRITE_CONTROL_REGISTER=0b0100 << 20;
+    static const uint32_t COMMAND_WRITE_INPUT_REGISTER = (uint32_t)0b0001 << 20;
+    static const uint32_t COMMAND_UPDATE_INPUT_REGISTER = (uint32_t)0b0010 << 20;
+    static const uint32_t COMMAND_WRITE_CONTROL_REGISTER = (uint32_t)0b0100 << 20;
 
-    static const uint32_t OPTION_ENABLE_DAISY_CHAIN = 1 << 14;  
-    static const uint32_t OPTION_ENABLE_GAIN = 1 << 15;
-    static const uint32_t OPTION_DISABLE_REFERENCE = 1 << 16;
-    static const uint32_t OPTION_PD0 = 1 << 17;
-    static const uint32_t OPTION_PD1 = 1 << 18;
-    static const uint32_t OPTION_RESET = 1 << 19;
+    static const uint32_t OPTION_ENABLE_DAISY_CHAIN = (uint32_t)1 << 14;  
+    static const uint32_t OPTION_ENABLE_GAIN = (uint32_t)1 << 15;
+    static const uint32_t OPTION_DISABLE_REFERENCE = (uint32_t)1 << 16;
+    static const uint32_t OPTION_PD0 = (uint32_t)1 << 17;
+    static const uint32_t OPTION_PD1 = (uint32_t)1 << 18;
+    static const uint32_t OPTION_RESET = (uint32_t)1 << 19;
 };
 
 class AD5681R: public AD568XR {
