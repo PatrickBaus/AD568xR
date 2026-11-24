@@ -40,3 +40,4 @@ test/build/
 coverage*.html
 coverage*.css
 coverage.xml
+coverage/

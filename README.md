@@ -1,6 +1,8 @@
 AD5681R/AD5682R/AD5683R Arduino Library
 ===================
 
+[![CI](https://github.com/PatrickBaus/AD568xR/actions/workflows/ci.yml/badge.svg)](https://github.com/PatrickBaus/AD568xR/actions/workflows/ci.yml)
+
 This repository contains an Arduino library for the Analog Devices AD5681R/AD5682R/AD5683R family of nanoDAC+s written in C++. The library uses SPI Transactions and allows to select the SPI controller if there is more than one.
 
 Usage
