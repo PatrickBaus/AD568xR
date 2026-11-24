@@ -67,6 +67,8 @@ void AD568XR::disableRefeference(const bool disable){
 
 void AD568XR::setPowerDownMode(const PowerDownMode mode) {
   this->controlRegister ^= ((-(uint32_t)(mode & 0b1) ^ this->controlRegister) & this->OPTION_PD0) | ((-(uint32_t)((mode >> 1) & 0b1) ^ this->controlRegister) & this->OPTION_PD1);    // set *both* the OPTION_PD0 and OPTION_PD1 bits according to the input value
+
+  this->writeSPI(this->COMMAND_WRITE_CONTROL_REGISTER | this->controlRegister);
 }
 
 void AD568XR::reset() {
