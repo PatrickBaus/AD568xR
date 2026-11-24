@@ -12,7 +12,7 @@ jobs:
     name: Host tests and coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install gcovr
         run: pipx install gcovr
@@ -37,7 +37,7 @@ jobs:
 
       - name: Upload coverage report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: coverage/
@@ -47,9 +47,9 @@ jobs:
     name: Arduino Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: arduino/arduino-lint-action@v2
+      - uses: arduino/arduino-lint-action@v3
         with:
           # The library is not part of the Library Manager index, so the "update" mode would fail with rule LP018
           library-manager: false
@@ -74,7 +74,7 @@ jobs:
               - name: esp32:esp32
                 source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: arduino/compile-sketches@v1
         with:
